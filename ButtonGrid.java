@@ -7,6 +7,7 @@ import javafx.scene.layout.GridPane;
 public class ButtonGrid {
 
     GridPane gPane;
+    ArrayList<Button> btnList;
     
     // Creates the grid of buttons with emojis
     public ButtonGrid(){
@@ -14,7 +15,8 @@ public class ButtonGrid {
         gPane.setAlignment(Pos.CENTER);
         int rows = 4;
         int cols = 4;
-        ArrayList<Button> btnList = new ArrayList<>();
+        ArrayList<Button> deadBtnList = new ArrayList<>();
+        btnList = new ArrayList<>();
         Symbols symbols = new Symbols();
         symbols.shuffleSymbols();
         for (int i = 0; i < rows; i++){
@@ -22,9 +24,25 @@ public class ButtonGrid {
                 Button btn = new Button(symbols.popString());
                 btn.setStyle("-fx-font-size:40");
                 gPane.add(btn, i, j, 1, 1);
-                ButtonHandler buttonHandler = new ButtonHandler(btn, btnList);
+                btnList.add(btn);
+                ButtonHandler buttonHandler = new ButtonHandler(btn, deadBtnList);
                 btn.setOnAction(buttonHandler);
             }
+        }
+    }
+
+    public Boolean isFinished(){
+        int count = 0;
+        for(Button i : btnList){
+            if(i.isDisabled() == true){
+                count++;
+            }
+        }
+        if (count == 16){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 

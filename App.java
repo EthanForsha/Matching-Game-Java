@@ -1,11 +1,17 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class App extends Application {
 
@@ -28,6 +34,19 @@ public class App extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.setTitle("Matching Game!");
+        final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+            int count = 0;
+            @Override
+            public void handle(ActionEvent event) {
+                count++;
+                label.setText("Time Elapsed: " + count + " seconds");    
+            }
+       }));
+       timeline.setCycleCount(Timeline.INDEFINITE);
+       timeline.play();
+       if (buttons.isFinished()){
+        timeline.stop();
+       }
     }
     public static void main(String[] args) throws Exception {
         launch(args);
