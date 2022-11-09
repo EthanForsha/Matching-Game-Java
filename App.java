@@ -34,12 +34,15 @@ public class App extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.setTitle("Matching Game!");
+        /* */
         final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
             int count = 0;
             @Override
             public void handle(ActionEvent event) {
-                count++;
-                label.setText("Time Elapsed: " + count + " seconds");    
+                if(buttons.isFinished() == false){
+                    count++;
+                label.setText("Time Elapsed: " + count + " seconds"); 
+                }  
             }
        }));
        timeline.setCycleCount(Timeline.INDEFINITE);
